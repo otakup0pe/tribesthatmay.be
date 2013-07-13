@@ -1,19 +1,19 @@
 ---
 - name: ttmb | create base directory
-  file: path=/opt/ttmb state=directory
+  file: path=$dest state=directory
 - name: ttmb | create sub directories
-  file: path=/opt/ttmb/$item state=directory
+  file: path=$dest/$item state=directory
   with_items:
   - js
   - css
   - stories
 - name: ttmb | copy css bits
-  copy: src=parchment/lib/$item dest=/opt/ttmb/css/$item force=yes
+  copy: src=parchment/lib/$item dest=$dest/css/$item force=yes
   with_items:
   - glkote.min.css
   - parchment.min.css
 - name: ttmb | copy js bits
-  copy: src=parchment/lib/$item dest=/opt/ttmb/css/$item force=yes
+  copy: src=parchment/lib/$item dest=$dest/js/$item force=yes
   with_items:
   - glkote.min.js
   - gnusto.min.js
@@ -23,4 +23,12 @@
   - quixe.min.js
   - zvm.min.js
 - name: ttmb | copy index
-  copy: src=src/raspi.html dest=/opt/ttmb/index.html
+  copy: src=src/raspi.html dest=$dest/$parchment
+- name: ttmb | copy story
+  get_url: url=$story dest=$dest/stories
+- name: ttmb | determine story filename
+  shell: echo ${story} | sed -e 's!^.*/!!'
+  register: story_file
+- name: ttmb | update parchment html
+  shell: sed -i -e s#@@STORY@@#stories/${story_file.stdout}# $dest/$parchment
+  
