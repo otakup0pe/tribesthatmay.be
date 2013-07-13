@@ -1,0 +1,24 @@
+---
+- name: base | ansible deps
+  command: apt-get install python-apt creates=/usr/share/doc/python-apt
+- name: base | create apt-update-post-invoke-success hook
+  copy: src=conf/apt-touchstamp.conf dest=/etc/apt/apt.conf.d/90-touchstamp
+- name: base | copy apt-touchstamp helper script
+  copy: src=bin/apt-touchstamp.sh dest=/usr/local/sbin/apt-touchstamp mode=0770 force=true
+- name: base | check last apt-update
+  register: last_apt_update
+  command: /usr/local/sbin/apt-touchstamp
+- name: base | update apt cache
+  apt: update_cache=yes
+  only_if: "'${last_apt_update.stdout}' == 'true'"
+- name: base | install dependencies
+  apt: pkg=$item state=latest
+  only_if: "'${last_apt_update.stdout}' == 'true'"
+  with_items:
+    - vim
+    - sudo
+    - build-essential
+    - nginx
+    - python-httplib2
+    - dnsmasq
+    - iw

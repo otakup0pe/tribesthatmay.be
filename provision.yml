@@ -1,0 +1,9 @@
+---
+- hosts: all
+  tasks:
+  - include: tasks/base.yml
+  - include: tasks/hostapd.yml
+  - include: tasks/networking.yml
+  - include: tasks/dnsmasq.yml
+  - include: tasks/nginx-raspi.yml
+  - include: tasks/tribes.yml

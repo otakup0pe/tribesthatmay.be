@@ -1,0 +1,26 @@
+---
+- name: ttmb | create base directory
+  file: path=/opt/ttmb state=directory
+- name: ttmb | create sub directories
+  file: path=/opt/ttmb/$item state=directory
+  with_items:
+  - js
+  - css
+  - stories
+- name: ttmb | copy css bits
+  copy: src=parchment/lib/$item dest=/opt/ttmb/css/$item force=yes
+  with_items:
+  - glkote.min.css
+  - parchment.min.css
+- name: ttmb | copy js bits
+  copy: src=parchment/lib/$item dest=/opt/ttmb/css/$item force=yes
+  with_items:
+  - glkote.min.js
+  - gnusto.min.js
+  - jquery.min.js
+  - parchment.min.js
+  - prototype.min.js
+  - quixe.min.js
+  - zvm.min.js
+- name: ttmb | copy index
+  copy: src=src/raspi.html dest=/opt/ttmb/index.html

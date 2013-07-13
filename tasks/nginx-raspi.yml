@@ -1,0 +1,9 @@
+---
+- name: nginx | copy nginx config
+  copy: src=conf/nginx-raspi.conf dest=/etc/nginx/sites-available/ttmb-actual force=yes
+- name: nginx | activate site
+  file: path=/etc/nginx/sites-enabled/ttmb-actual src=/etc/nginx/sites-available/ttmb-actual state=link
+- name: nginx | remove default site
+  file: path=/etc/nginx/sites-enabled/default state=absent
+- name: nginx | restart nginx
+  service: name=nginx state=restarted

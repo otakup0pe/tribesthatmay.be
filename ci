@@ -1,0 +1,42 @@
+#!/bin/bash
+
+PARCHMENT_GIT="git://github.com/curiousdannii/parchment.git"
+DEST="build"
+
+rm -rf $DEST
+
+function die {
+	 echo "PROBLEMS $1"
+	 exit 1
+}
+
+if [ "$(which npm)" == "" ] || [ "$(which node)" == "" ] ; then
+   die "requires nodejs!"
+fi
+
+if [ "$(which grunt)" == "" ] ; then
+   die "requires grunt!"
+fi
+
+mkdir -p $DEST
+
+# fetch parchment!
+if [ -e "parchment" ] ; then
+   cd parchment && git pull && cd .. || die "unable to clone parchment!"
+else
+   git clone $PARCHMENT_GIT parchment || die "unable to pull parchment!"
+fi
+
+# build parchment!
+cd parchment && \
+npm install && \
+grunt && \
+cd .. || die "unable to build parchment!"
+
+#copy shit around!
+mkdir -p $DEST/js $DEST/css $DEST/stories && \
+cp src/index.html $DEST && \
+cp parchment/lib/*.min.js $DEST/js && \
+cp parchment/lib/*.min.css $DEST/css && \
+
+#cp stories/*.z8 $DEST/stories || die "unable to copy things!"
