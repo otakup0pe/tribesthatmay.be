@@ -7,5 +7,5 @@ iface wlan0 inet static
       address 10.0.0.1
       netmask 255.255.0.0
       broadcast 10.0.255.255
-      post-up service hostapd start
-      pre-down service hostapd stop
+      post-up monit start hostapd
+      pre-down monit stop hostapd

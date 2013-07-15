@@ -1,7 +1,8 @@
 #!/bin/bash
 
 PARCHMENT_GIT="git://github.com/curiousdannii/parchment.git"
-DEST="build"
+DROPBOX=~/Dropbox
+SLIDES=ttmb_media
 
 rm -rf $DEST
 
@@ -31,4 +32,18 @@ npm install && \
 grunt && \
 cd .. || die "unable to build parchment!"
 
-# deploy!
+# generate ttmb_slides
+SLIDES_FILE=src/js/ttmb_slides.js
+DIRECTORY=${DROPBOX}/TribesThatMayBe/${SLIDES}
+
+echo -n "var imageList = [ " > $SLIDES_FILE
+FIRST=true
+for f in $(find ${DIRECTORY} -type file) ; do
+    if [ $FIRST == true ] ; then
+        FIRST=false
+    else
+        echo -n "," >> $SLIDES_FILE
+    fi
+    echo -n "\"$(basename $f)\"" >> $SLIDES_FILE
+done
+echo  "];" >> $SLIDES_FILE

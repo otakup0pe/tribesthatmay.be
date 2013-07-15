@@ -1,11 +1,16 @@
 ---
-- hosts: all
+- hosts: raspi
   vars:
-  - story: http://mirror.ifarchive.org/if-archive/games/zcode/LostPig.zblorb
+  - dropbox: ~/Dropbox
+  - story: LostPig.zblorb
+  - slides: ttmb_media
   tasks:
   - include: tasks/base.yml
+  - include: tasks/security.yml
+  - include: tasks/monit.yml
   - include: tasks/hostapd.yml
   - include: tasks/networking.yml
   - include: tasks/dnsmasq.yml
   - include: tasks/nginx-raspi.yml
-  - include: tasks/tribes.yml dest=/opt/ttmb parchment=index.html
+  - include: tasks/tribes.yml dest=/opt/ttmb/game
+  - include: tasks/slideshow.yml dest=/opt/ttmb

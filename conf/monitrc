@@ -1,0 +1,9 @@
+#check every 15s. delay first check by 60s.
+set daemon 15
+#log to syslog as daemon
+set logfile syslog facility log_daemon
+include /etc/monit/conf.d/*
+#allow from localhost only
+set httpd port 2812 and
+    use address localhost
+    allow 127.0.0.1/32

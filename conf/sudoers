@@ -1,0 +1,1 @@
+%tribes ALL=(root) NOPASSWD:/usr/sbin/service ttmb restart

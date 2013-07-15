@@ -1,0 +1,7 @@
+---
+- hosts: web
+  vars:
+  - dropbox: ~/Dropbox
+  - story: ttmb_public.gblorb
+  tasks:
+  - include: tasks/tribes.yml dest=/var/www/tribesthatmay.be

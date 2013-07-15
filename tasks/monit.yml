@@ -1,0 +1,7 @@
+---
+- name: monit | install package
+  apt: pkg=monit state=latest
+- name: monit | install monitrc
+  copy: src=conf/monitrc dest=/etc/monit/monitrc force=yes
+- name: monit | restart monit
+  service: name=monit state=restarted

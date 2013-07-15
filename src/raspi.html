@@ -13,7 +13,17 @@
 	      default_story: ["@@STORY@@"],
 	      lock_story: 1,
 	      lock_options: 1
-	  }
+	  };
+
+/*
+      setTimeout(function() {
+      runner.fromEngine = (function(original) {
+      return function(orders) {
+      console.log(orders);
+      return original.apply(this, arguments);
+      }})(runner.fromEngine);
+      }, 1000);
+*/
 	</script>
 </head>
 <body>

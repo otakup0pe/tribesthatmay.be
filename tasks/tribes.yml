@@ -23,12 +23,8 @@
   - quixe.min.js
   - zvm.min.js
 - name: ttmb | copy index
-  copy: src=src/raspi.html dest=$dest/$parchment
+  copy: src=src/raspi.html dest=$dest/index.html
 - name: ttmb | copy story
-  get_url: url=$story dest=$dest/stories
-- name: ttmb | determine story filename
-  shell: echo ${story} | sed -e 's!^.*/!!'
-  register: story_file
+  copy: src=$dropbox/TribesThatMayBe/$story dest=$dest/stories/$story
 - name: ttmb | update parchment html
-  shell: sed -i -e s#@@STORY@@#stories/${story_file.stdout}# $dest/$parchment
-  
+  shell: sed -i -e s#@@STORY@@#stories/${story}# $dest/index.html

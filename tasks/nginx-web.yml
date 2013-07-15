@@ -1,7 +1,0 @@
----
-- name: nginx | copy nginx config
-  template: src=templates/nginx-web.conf dest=/etc/nginx/sites-available/ttmb-web force=yes
-- name: nginx | activate site
-  file: path=/etc/nginx/sites-enabled/ttmb-web src=/etc/nginx/sites-available/ttmb-web state=link
-- name: nginx | restart nginx
-  service: name=nginx state=restarted

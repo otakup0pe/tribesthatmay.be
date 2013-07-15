@@ -1,0 +1,8 @@
+---
+- name: apache | copy config
+  copy: src=templates/apache-web.conf dest=/etc/apache2/sites-available/ttmb-web force=yes
+- name: apache | activate site
+  file: path=/etc/apache2/sites-enabled/ttmb-web src=/etc/apache2/sites-available/ttmb-web state=link
+- name: apache | reload
+  command: service apache2 reload
+  

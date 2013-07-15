@@ -1,6 +1,6 @@
 ---
   - name: hostapd | fetch hostapd-rtl8188
-    uri: dest=/tmp url=https://github.com/jenssegers/RTL8188-hostapd/archive/master.zip creates=/tmp/master.zip
+    uri: dest=/tmp/master.zip url=https://github.com/jenssegers/RTL8188-hostapd/archive/master.zip creates=/tmp/master.zip
   - name: hostapd | extract hostapd-rtl8188
     command: unzip /tmp/master.zip creates=/tmp/RTL8188-hostapd-master chdir=/tmp
   - name: hostapd | build
@@ -8,4 +8,6 @@
   - name: hostapd | install
     command: make install chdir=/tmp/RTL8188-hostapd-master/hostapd creates=/usr/local/bin/hostapd
   - name: hostapd | copy config file
-    copy: src=conf/hostapd.conf dest=/etc/hostapd/hostapd.conf
+    copy: src=conf/hostapd.conf dest=/etc/hostapd/hostapd.conf force=true
+  - name: hostapd | copy monit config file
+    copy: src=conf/monit/hostapd.conf dest=/etc/monit/conf.d/hostapd.conf force=yes
