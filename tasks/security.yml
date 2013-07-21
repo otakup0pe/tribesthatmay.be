@@ -20,7 +20,7 @@
   - pi
   - jenkins
 - name: security | setup ci sudoers
-  copy: src=conf/sudoers dest=/etc/sudoers.d/tribes
+  copy: src=conf/sudoers dest=/etc/sudoers.d/tribes owner=root group=root
 - name: security | secure sshd
   command: sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/; s/PrintMotd no/PrintMotd yes/; s/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
 - name: security | restart ssh
