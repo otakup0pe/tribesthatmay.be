@@ -1,0 +1,10 @@
+---
+- name: mdns | install package
+  apt: pkg=$item state=latest install_recommends=no
+  with_items:
+  - libnss-mdns
+  - avahi-autoipd
+  - avahi-dnsconfd
+  - avahi-utils
+- name: mdns | overwrite dhclient exit hook
+  copy: src=conf/zzz_avahi-autoipd dest=/etc/dhcp/dhclient-exit-hooks.d/zzz_avahi-autoipd
