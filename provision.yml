@@ -6,6 +6,7 @@
   - slides: ttmb_media
   tasks:
   - include: tasks/base.yml
+  - include: tasks/trim.yml
   - include: tasks/security.yml
   - include: tasks/monit.yml
   - include: tasks/hostapd.yml
