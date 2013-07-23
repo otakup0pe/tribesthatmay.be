@@ -22,3 +22,4 @@
     - python-httplib2
     - dnsmasq
     - iw
+    - screen
