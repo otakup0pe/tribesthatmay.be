@@ -1,0 +1,8 @@
+#!/bin/bash
+HOSTNAME="${COLLECTD_HOSTNAME:-localhost}"
+INTERVAL="${COLLECTD_INTERVAL:-60}"
+
+while sleep "$INTERVAL"; do
+    VALUE=$(/usr/local/bin/hostapd_cli all_sta | grep -v wlan0 | wc -l)
+    echo "PUTVAL $HOSTNAME/hostapd/gauge-stations interval=$INTERVAL N:$VALUE"
+done

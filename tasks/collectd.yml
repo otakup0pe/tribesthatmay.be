@@ -1,0 +1,13 @@
+---
+- name: collectd | install packages
+  apt: pkg=$item state=latest install_recommends=no
+  with_items:
+  - collectd-core
+- name: collectd | copy config file
+  copy: src=conf/collectd.conf dest=/etc/collectd/collectd.conf force=yes
+- name: collectd | copy exec scripts
+  copy: src=scripts/$item dest=/usr/local/bin/$item mode=0755 force=yes
+  with_items:
+  - collectd_hostapd
+- name: collectd | start service
+  service: name=collectd state=restarted

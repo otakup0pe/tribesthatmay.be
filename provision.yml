@@ -9,6 +9,7 @@
   - include: tasks/trim.yml
   - include: tasks/security.yml
   - include: tasks/monit.yml
+  - inclide: tasks/collectd.yml
   - include: tasks/hostapd.yml
   - include: tasks/networking.yml
   - include: tasks/dnsmasq.yml
