@@ -8,7 +8,7 @@
   copy: src=src/js/$item dest=$dest/js force=true
   with_items:
   - slideshow.js
-  - jquery.slides.min.js
+  - jquery.flexslider-min.js
   - jquery.cookie.js
   - ttmb_slides.js
 - name: slideshow | copy html

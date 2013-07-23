@@ -18,48 +18,24 @@ function doRedirect() {
 
 function loadImages() {
     $(imageList).each(function() {
-                          $('<img/>').
-                              attr('src', "images/" + this).
-                              //                              attr('height', "240").
-                              //                              attr('width', "320").
+                          $('<li><img src="images/' + this + '"/></li>').
                               appendTo('#slides').
                               css('display', 'none');
                       });
 }
 
 function rollTape() {
-    $('#slides').slidesjs({
-                              width: 320,
-                              height: 240,
-                              navigation : {
-                                  active : false
-
-                              },
-                              pagination : {
-                                  active : false
-                              },
-                              effect : {
-                                  fade: {
-                                      speed: 250
+    $('.flexslider').flexslider({
+                                    slideshowSpeed: 1000,
+                                    animationSpeed: 250,
+                                    controlNav: false,
+                                    directionNav: false,
+                                    keyboard: false,
+                                    end:  function() {
+                                        $.cookie('seen_slideshow', "true");
+                                        doRedirect();
                                   }
-                              },
-                              play: {
-                                  effect : "fade",
-                                  auto : true,
-                                  active : false,
-                                  interval : 1000
-                              },
-                              callback : {
-                                  complete : function(number) {
-                                      if ( number == imageList.length ) {
-                                          setTimeout(function() {
-                                                         $.cookie('seen_slideshow', "true");
-                                                         doRedirect();
-                                                     }, 1000);
-                                      }
-                                  }
-                              }
-                          });
+                              });
 }
 
 function doStuff() {
