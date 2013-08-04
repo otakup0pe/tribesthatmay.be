@@ -1,7 +1,9 @@
 ---
 - hosts: web
   vars:
-  - dropbox: ~/Dropbox
-  - story: ttmb_public.gblorb
+  - cfile: ~/Dropbox/TribesThatMayBe/typical.yml
+  vars_files:
+  - $cfile
   tasks:
-  - include: tasks/tribes.yml dest=/var/www/tribesthatmay.be
+  - include: tasks/tribes.yml source=web.html story=$web_story
+  - include: tasks/public.yml

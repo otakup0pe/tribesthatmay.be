@@ -1,9 +1,9 @@
 ---
 - hosts: raspi
   vars:
-  - dropbox: ~/Dropbox
-  - story: LostPig.zblorb
-  - slides: ttmb_media
+  - cfile: ~/Dropbox/TribesThatMayBe/typical.yml
+  vars_files:
+  - $cfile
   tasks:
-  - include: tasks/tribes.yml dest=/opt/ttmb/game
+  - include: tasks/tribes.yml dest=/opt/ttmb/game source=raspi.html story=$raspi_story
   - include: tasks/slideshow.yml dest=/opt/ttmb

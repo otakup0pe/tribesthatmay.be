@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="utf-8">
+        <title>Tribes That May Be</title>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <link rel="stylesheet" href="css/jquery-ui.min.css">
+        <meta name="viewport" content="width=device-width,user-scalable=no">
+</head>
+<body>
+  <div id="tabs">
+    <ul>
+      <li><a href="#story"><span>Story</span></a></li>
+      <li><a href="#about"><span>About</span></a></li>
+      <li><a href="#survey"><span>Survey</span></a></li>
+    </ul>
+    <div id="story">
+      <div id="parchment">
+        <iframe src="/web.html" width="760" height="500" frameborder="0" marginheight="0">
+          Loading
+        </iframe>
+      </div>
+    </div>
+    <div id="about">
+      <p>
+        <b>Tribes That May Be</b> is a project by <b>Jonathan "Gadget" Freedman</b> (power, circuits, deployment, metrics) and <b>Adrienne "Ashtar" Haik</b> (game programming, story development). They live in Oakland, California with too many cats and built the structure together on the roof of their building while dodging the Home Owner's Association
+      </p>
+      <p>You can find us on Twitter: <a target="_blank" href="http://twitter.com/Adri">Adri</a> and <a target="_blank" href="http://twitter.com/otakup0pe">Jonathan</a></p>
+      <p>
+        You can keep up with project progress & photos by following us on Twitter (<a target="_blank" href="http://twitter.com/TribesThatMayBe">@TribesThatMayBe</a>) or on Facebook (<a target="_blank" href="https://www.facebook.com/tribesthatmaybe">Tribes that May Be</a>
+      </p>
+    </div>
+    <div id="survey">
+      <p>
+        Would you like your camp, art, art car, or self to appear in the Tribes That May Be story? So would we! Fill out the below questionnaire. We may not be able to add your content this year, but we'll definitely try! Thanks!
+      </p>
+      <p>
+        <iframe src="https://docs.google.com/forms/d/1gy3uqxCX4Zj1YAptRsNs_hFFymqL47kQbIuaDjD7WxY/viewform?embedded=true" width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">
+          Loading
+        </iframe>
+      </p>
+    </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42119694-1', 'tribesthatmay.be');
+  ga('send', 'pageview');
+
+  $("#tabs").tabs();
+</script>
+</body>
+</html>

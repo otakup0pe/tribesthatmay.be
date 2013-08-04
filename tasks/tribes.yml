@@ -22,9 +22,9 @@
   - prototype.min.js
   - quixe.min.js
   - zvm.min.js
-- name: ttmb | copy index
-  copy: src=src/raspi.html dest=$dest/index.html
+- name: ttmb | copy game
+  copy: src=src/$source dest=$dest/$source
 - name: ttmb | copy story
-  copy: src=$dropbox/TribesThatMayBe/$story dest=$dest/stories/$story
+  copy: src=$source_dir/$story dest=$dest/stories/$story
 - name: ttmb | update parchment html
-  shell: sed -i -e s#@@STORY@@#stories/${story}# $dest/index.html
+  shell: sed -i -e s#@@STORY@@#${story}# $dest/$source

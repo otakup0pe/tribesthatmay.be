@@ -52,27 +52,31 @@ GPIO.setup(SPIMOSI, GPIO.OUT)
 GPIO.setup(SPIMISO, GPIO.IN)
 GPIO.setup(SPICLK, GPIO.OUT)
 GPIO.setup(SPICS, GPIO.OUT)
- 
-vPin = 0
-cPin = 1
+
+reps = 1000 
+vPin = 7
+cPin = 6
  
 while True:
     vTot = 0
-    for i in range(1000):
-        vRead =  readadc(vPin, SPICLK, SPIMOSI, SPIMISO, SPICS)
-        vTot += vRead
-    vRead = vTot / 1000 / 1
+    for i in range(reps):
+        vIn =  readadc(vPin, SPICLK, SPIMOSI, SPIMISO, SPICS)
+        vTot += vIn
+        if i == 1:
+            print "SAMPLE %d %d" % ( vIn, ( vIn * ( 3300.0 / 1024.0 ) ) )
+    vRead = vTot / reps / 1
 
     millivolts = vRead * ( 3300.0 / 1024.0)
  
-    millivolts = millivolts * 4.57831325301205
-    print "%d V ( %d raw V ) ( %d mV )" % ( millivolts + 570, millivolts, millivolts )
+    adjMillivolts = millivolts * 4.57831325301205
+    compMv = adjMillivolts + 200
+    print "%d mV ( %d mv adj ) ( %d mV raw )" % ( compMv, adjMillivolts, millivolts )
 
     cTot = 0
-    for i in range(1000):
+    for i in range(reps):
         cRead = readadc(cPin, SPICLK, SPIMOSI, SPIMISO, SPICS)
         cTot += cRead
-    cRead = cTot / 1000 / 1
+    cRead = cTot / reps / 1
     
     cMv = cRead * ( 3300.0 / 1024.0 )
     cCur = 0

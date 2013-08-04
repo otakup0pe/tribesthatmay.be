@@ -10,10 +10,16 @@
   command: /usr/local/sbin/apt-touchstamp
 - name: base | update apt cache
   apt: update_cache=yes
-  only_if: "'${last_apt_update.stdout}' == 'true'"
+  only_if: "'${last_apt_update.stdout}' == 'true' and '${am_online.stdout}' == '0'"
+- name: base | check if packages installed
+  command: /usr/local/bin/is_installed apt vim
+  register: vim_installed
+- name: base | abort if needed
+  fail: msg="Dependencies not installed but not online"
+  only_if: "'${vim_installed.stdout}' == '0' and '${am_online.stdout}' != '0'"
 - name: base | install dependencies
   apt: pkg=$item state=latest install_recommends=no
-  only_if: "'${last_apt_update.stdout}' == 'true'"
+  only_if: "'${last_apt_update.stdout}' == 'true' and '${am_online.stdout}' == '0'"
   with_items:
     - vim
     - sudo

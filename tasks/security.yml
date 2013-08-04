@@ -15,7 +15,7 @@
   - pi
   - jenkins
 - name: security | setup authozied_keys
-  copy: src=$dropbox/TribesThatMayBe/authorized_keys dest=/home/$item/.ssh/authorized_keys owner=$item group=$item mode=0660
+  copy: src=$source_dir/authorized_keys dest=/home/$item/.ssh/authorized_keys owner=$item group=$item mode=0660
   with_items:
   - pi
   - jenkins

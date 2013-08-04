@@ -1,0 +1,9 @@
+---
+- name: preflight | install helper scripts
+  copy: src=scripts/$item dest=/usr/local/bin/$item mode=0755
+  with_items:
+  - am_online
+  - is_installed
+- name: preflight | check internet access
+  command: /usr/local/bin/am_online
+  register: am_online

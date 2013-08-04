@@ -1,0 +1,10 @@
+#!/bin/bash
+
+OPT=$1
+PKG=$2
+
+if [ "$OPT" == "apt" ] ; then
+   dpkg-query -s $PKG 2>&1 | grep Status | grep ok | wc -l
+elif [ "$OPT" == "which" ] ; then
+   which $PKG | wc -l
+fi

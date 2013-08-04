@@ -53,7 +53,7 @@ GPIO.setup(SPIMISO, GPIO.IN)
 GPIO.setup(SPICLK, GPIO.OUT)
 GPIO.setup(SPICS, GPIO.OUT)
  
-tempPin = 0
+tempPin = 5
 lightPin = 1
  
 while True:
@@ -80,4 +80,4 @@ while True:
     lightRead = readadc(lightPin, SPICLK, SPIMOSI, SPIMISO, SPICS)
     
     print "Light P ", lightRead
-    time.sleep(5)
+    time.sleep(2)

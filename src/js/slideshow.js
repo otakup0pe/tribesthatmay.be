@@ -13,7 +13,7 @@ function queryStrBit(ji) {
 
 
 function doRedirect() {
-    window.location = "/game/";
+    window.location = "/";
 }
 
 function loadImages() {
