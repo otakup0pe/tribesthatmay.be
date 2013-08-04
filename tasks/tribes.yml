@@ -10,8 +10,8 @@
 - name: ttmb | copy css bits
   copy: src=parchment/lib/$item dest=$dest/css/$item force=yes
   with_items:
-  - glkote.min.css
   - parchment.min.css
+  - glkote.min.css
 - name: ttmb | copy js bits
   copy: src=parchment/lib/$item dest=$dest/js/$item force=yes
   with_items:
@@ -22,6 +22,7 @@
   - prototype.min.js
   - quixe.min.js
   - zvm.min.js
+  - glkote.min.css
 - name: ttmb | copy game
   copy: src=src/$source dest=$dest/$source
 - name: ttmb | copy story
