@@ -11,6 +11,7 @@
   - jquery.flexslider-min.js
   - jquery.cookie.js
   - ttmb_slides.js
+  - jquery.min.js
 - name: slideshow | copy html
   copy: src=src/slideshow.html dest=$dest/index.html force=true
 - name: slideshow | copy images

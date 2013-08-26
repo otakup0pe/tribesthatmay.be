@@ -5,5 +5,5 @@
   vars_files:
   - $cfile
   tasks:
-  - include: tasks/tribes.yml dest=/opt/ttmb/game source=raspi.html story=$raspi_story
-  - include: tasks/slideshow.yml dest=/opt/ttmb
+  - include: tasks/tribes.yml dest=/opt/ttmb source=raspi.html story=$raspi_story
+  - include: tasks/slideshow.yml dest=/opt/ttmb/slideshow

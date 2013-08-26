@@ -17,3 +17,4 @@
   - include: tasks/nginx-raspi.yml
   - include: tasks/tribes.yml dest=/opt/ttmb/ source=raspi.html story=$raspi_story
   - include: tasks/slideshow.yml dest=/opt/ttmb/slideshow
+  - include: tasks/backups.yml
