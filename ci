@@ -38,7 +38,12 @@ DIRECTORY=${DROPBOX}/TribesThatMayBe/${SLIDES}
 
 echo -n "var imageList = [ " > $SLIDES_FILE
 FIRST=true
-for f in $(find ${DIRECTORY} -type file) ; do
+F_ARG="-type f"
+if [ "$(uname)" == "Darwin" ] ; then
+	F_ARG="-type file"
+fi
+
+for f in $(find ${DIRECTORY} ${F_ARG}) ; do
     if [ $FIRST == true ] ; then
         FIRST=false
     else
