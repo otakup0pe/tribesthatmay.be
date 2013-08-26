@@ -29,3 +29,11 @@
     - dnsmasq
     - iw
     - screen
+    - i2c-tools
+    - python-smbus
+    - rsync
+- name: base | copy modules file
+  copy: src=conf/modules dest=/etc/modules
+- name: base | override raspi-blacklist for i2c
+  copy: src=conf/raspi-blacklist.conf dest=/etc/modprobe.d/raspi-blacklist.conf
+ 
