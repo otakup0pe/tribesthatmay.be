@@ -32,6 +32,8 @@
     - i2c-tools
     - python-smbus
     - rsync
+    - uptimed
+    - htop
 - name: base | copy modules file
   copy: src=conf/modules dest=/etc/modules
 - name: base | override raspi-blacklist for i2c
