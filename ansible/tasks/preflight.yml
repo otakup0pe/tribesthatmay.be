@@ -1,6 +1,6 @@
 ---
 - name: preflight | install helper scripts
-  copy: src=scripts/$item dest=/usr/local/bin/$item mode=0755
+  copy: src="{{item}}" dest="/usr/local/bin/{{item}}" mode=0755
   with_items:
   - am_online
   - is_installed

@@ -4,20 +4,20 @@
     register: hostapd_installed
   - name: hostapd | must be installed if offline        
     fail: msg="hostapd not installed but not offline"
-    only_if: "'${hostapd_installed.stdout}' == '0' and '${am_online.stdout}' != '0'"
+    when: hostapd_installed.stdout == '0' and am_online.stdout != '0'
   - name: hostapd | fetch hostapd-rtl8188
     uri: dest=/tmp/master.zip url=https://github.com/jenssegers/RTL8188-hostapd/archive/master.zip creates=/tmp/master.zip
-    only_if: "'${am_online.stdout}' == '0'"
+    when: am_online.stdout == '0'
   - name: hostapd | extract hostapd-rtl8188
     command: unzip /tmp/master.zip creates=/tmp/RTL8188-hostapd-master chdir=/tmp
-    only_if: "'${am_online.stdout}' == '0'"
+    when: am_online.stdout == '0'
   - name: hostapd | build
     command: make chdir=/tmp/RTL8188-hostapd-master/hostapd creates=/tmp/RTL8188-hostapd-master/hostapd/hostapd
-    only_if: "'${am_online.stdout}' == '0'"
+    when: am_online.stdout == '0'
   - name: hostapd | install
     command: make install chdir=/tmp/RTL8188-hostapd-master/hostapd creates=/usr/local/bin/hostapd
-    only_if: "'${am_online.stdout}' == '0'"
+    when: am_online.stdout == '0'
   - name: hostapd | copy config file
-    copy: src=conf/hostapd.conf dest=/etc/hostapd/hostapd.conf force=true
+    copy: src=hostapd.conf dest=/etc/hostapd/hostapd.conf force=true
   - name: hostapd | copy monit config file
-    copy: src=conf/monit/hostapd.conf dest=/etc/monit/conf.d/hostapd.conf force=yes
+    copy: src=monit/hostapd.conf dest=/etc/monit/conf.d/hostapd.conf force=yes

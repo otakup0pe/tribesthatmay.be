@@ -4,21 +4,21 @@
   register: collectd_installed
 - name: collectd | must be installed if offline
   fail: msg="Collectd not installed but not online"
-  only_if: "'${collectd_installed.stdout}' == '0' and '${am_online.stdout}' != '0'"
+  when: collectd_installed.stdout == '0' and am_online.stdout != '0'
 - name: collectd | install packages
-  apt: pkg=$item state=latest install_recommends=no
-  only_if: "'${am_online.stdout}' == '0'"
+  apt: pkg="{{item}}" state=latest install_recommends=no
+  when: am_online.stdout == '0'
   with_items:
   - collectd-core
 - name: collectd | copy config file
-  copy: src=conf/collectd.conf dest=/etc/collectd/collectd.conf force=yes
+  copy: src=collectd.conf dest=/etc/collectd/collectd.conf force=yes
 - name: collectd | copy exec scripts
-  copy: src=scripts/$item dest=/usr/local/bin/$item mode=0755 force=yes
+  copy: src="{{item}}" dest="/usr/local/bin/{{item}}" mode=0755 force=yes
   with_items:
   - collectd_hostapd
   - collectd_thermal
 - name: collectd | copy python plugins
-  copy: src=scripts/$item dest=/usr/local/lib/$item mode=0755 force=yes
+  copy: src="{{item}}" dest="/usr/local/lib/{{item}}" mode=0755 force=yes
   with_items:
   - sensors_collectd.py
 - name: collectd | start service

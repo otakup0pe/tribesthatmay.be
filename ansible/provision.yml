@@ -1,9 +1,7 @@
 ---
 - hosts: raspi
-  vars:
-  - cfile: ~/Dropbox/TribesThatMayBe/typical.yml
   vars_files:
-  - $cfile
+  - ~/Dropbox/TribesThatMayBe/typical.yml
   tasks:
   - include: tasks/preflight.yml
   - include: tasks/base.yml

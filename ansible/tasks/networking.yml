@@ -3,9 +3,9 @@
   shell: ifconfig wlan0 | grep UP | wc -l
   register: wlan_up
 - name: networking | setup interfaces
-  copy: src=conf/interfaces dest=/etc/network/interfaces force=true
+  copy: src=interfaces dest=/etc/network/interfaces force=true
 - name: networking | disable interface
   command: ifdown wlan0
-  only_if: "${wlan_up.stdout} == 1"
+  when: wlan_up.stdout == '1'
 - name: networking | bring up interface
   command: ifup wlan0

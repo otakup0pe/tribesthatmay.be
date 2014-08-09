@@ -1,5 +1,5 @@
 - name: trim | remove unnecesary packages
-  apt: pkg=$item state=absent purge=yes install_recommends=no
+  apt: pkg="{{item}}" state=absent purge=yes install_recommends=no
   with_items:
   - xserver-common
   - xserver-xorg

@@ -4,11 +4,11 @@
   register: monit_installed
 - name: monit | must be installed if offline
   fail: msg="Monit not installed but not online"
-  only_if: "'${monit_installed.stdout}' == '0' and '${am_online.stdout}' != '0'"
+  when: monit_installed.stdout == '0' and am_online.stdout != '0'
 - name: monit | install package
   apt: pkg=monit state=latest
-  only_if: "'${am_online.stdout}' == '0'"
+  when: am_online.stdout == '0'
 - name: monit | install monitrc
-  copy: src=conf/monitrc dest=/etc/monit/monitrc force=yes
+  copy: src=monitrc dest=/etc/monit/monitrc force=yes
 - name: monit | restart monit
   service: name=monit state=restarted

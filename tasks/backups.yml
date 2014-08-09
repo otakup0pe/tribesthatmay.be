@@ -1,5 +1,0 @@
----
-- name: backups | copy script
-  copy: src=scripts/metrics_backup.sh dest=/usr/local/bin/metrics_backup.sh mode=0755
-- name: backups | copy cron
-  copy: src=conf/ttmb-backup dest=/etc/cron.hourly/ttmb-backup mode=0755

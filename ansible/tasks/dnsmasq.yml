@@ -1,5 +1,5 @@
 ---
 - name: dnsmasq | copy config
-  copy: src=conf/dnsmasq.conf dest=/etc/dnsmasq.conf force=true
+  copy: src=dnsmasq.conf dest=/etc/dnsmasq.conf force=true
 - name: dnsmasq | sysvinit hook
   service: state=started enabled=true name=dnsmasq

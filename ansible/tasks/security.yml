@@ -1,26 +1,26 @@
 ---
 - name: security | setup app users
-  user: name=${item} state=present shell=/bin/bash
+  user: name="{{item}}" state=present shell=/bin/bash
   with_items:
   - jenkins
   - tribes
 - name: security | put users in group
-  user: name=$item groups=tribes
+  user: name="{{item}}" groups=tribes
   with_items:
   - jenkins
   - pi
 - name: security | create .ssh dirs
-  file: path=/home/$item/.ssh state=directory mode=0700 owner=$item group=$item
+  file: path="/home/{{item}}/.ssh" state=directory mode=0700 owner="{{item}}" group="{{item}}"
   with_items:
   - pi
   - jenkins
 - name: security | setup authozied_keys
-  copy: src=$source_dir/authorized_keys dest=/home/$item/.ssh/authorized_keys owner=$item group=$item mode=0660
+  copy: src="{{source_dir}}/authorized_keys" dest="/home/{{item}}/.ssh/authorized_keys" owner="{{item}}" group="{{item}}" mode=0660
   with_items:
   - pi
   - jenkins
 - name: security | setup ci sudoers
-  copy: src=conf/sudoers dest=/etc/sudoers.d/tribes owner=root group=root
+  copy: src=sudoers dest=/etc/sudoers.d/tribes owner=root group=root
 - name: security | secure sshd
   command: sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/; s/PrintMotd no/PrintMotd yes/; s/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
 - name: security | restart ssh

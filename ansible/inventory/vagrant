@@ -1,0 +1,1 @@
+raspi ansible_ssh_host=192.168.69.200 ansible_ssh_port=22

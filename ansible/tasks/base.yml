@@ -2,24 +2,24 @@
 - name: base | ansible deps
   command: apt-get -y install python-apt creates=/usr/share/doc/python-apt
 - name: base | create apt-update-post-invoke-success hook
-  copy: src=conf/apt-touchstamp.conf dest=/etc/apt/apt.conf.d/90-touchstamp
+  copy: src=apt-touchstamp.conf dest=/etc/apt/apt.conf.d/90-touchstamp
 - name: base | copy apt-touchstamp helper script
-  copy: src=bin/apt-touchstamp.sh dest=/usr/local/sbin/apt-touchstamp mode=0770 force=true
+  copy: src=apt-touchstamp.sh dest=/usr/local/sbin/apt-touchstamp mode=0770 force=true
 - name: base | check last apt-update
   register: last_apt_update
   command: /usr/local/sbin/apt-touchstamp
 - name: base | update apt cache
   apt: update_cache=yes
-  only_if: "'${last_apt_update.stdout}' == 'true' and '${am_online.stdout}' == '0'"
+  when: last_apt_update.stdout == 'true' and am_online.stdout == '0'
 - name: base | check if packages installed
   command: /usr/local/bin/is_installed apt vim
   register: vim_installed
 - name: base | abort if needed
   fail: msg="Dependencies not installed but not online"
-  only_if: "'${vim_installed.stdout}' == '0' and '${am_online.stdout}' != '0'"
+  when: vim_installed.stdout == '0' and am_online.stdout != '0'
 - name: base | install dependencies
-  apt: pkg=$item state=latest install_recommends=no
-  only_if: "'${last_apt_update.stdout}' == 'true' and '${am_online.stdout}' == '0'"
+  apt: pkg="{{item}}" state=latest install_recommends=no
+  when: last_apt_update.stdout == 'true' and am_online.stdout == '0'
   with_items:
     - vim
     - sudo
@@ -35,7 +35,7 @@
     - uptimed
     - htop
 - name: base | copy modules file
-  copy: src=conf/modules dest=/etc/modules
+  copy: src=modules dest=/etc/modules
 - name: base | override raspi-blacklist for i2c
-  copy: src=conf/raspi-blacklist.conf dest=/etc/modprobe.d/raspi-blacklist.conf
+  copy: src=raspi-blacklist.conf dest=/etc/modprobe.d/raspi-blacklist.conf
  
