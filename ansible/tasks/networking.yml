@@ -4,8 +4,10 @@
   register: wlan_up
 - name: networking | setup interfaces
   copy: src=interfaces dest=/etc/network/interfaces force=true
+  register: interfaces_file
 - name: networking | disable interface
   command: ifdown wlan0
-  when: wlan_up.stdout == '1'
+  when: wlan_up.stdout == '1' and interfaces_file.changed
 - name: networking | bring up interface
   command: ifup wlan0
+  when: interfaces_file.changed

@@ -13,6 +13,7 @@
   - include: tasks/networking.yml
   - include: tasks/dnsmasq.yml
   - include: tasks/nginx-raspi.yml
-  - include: tasks/tribes.yml dest=/opt/ttmb/ source=raspi.html story=$raspi_story
+  - include: tasks/tribes.yml dest=/opt/ttmb/ source="~/Dropbox/TribesThatMayBe/{{art_piece}}"
   - include: tasks/slideshow.yml dest=/opt/ttmb/slideshow
+    when: with_slides == true
   - include: tasks/backups.yml

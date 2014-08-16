@@ -14,7 +14,7 @@
   with_items:
   - pi
   - jenkins
-- name: security | setup authozied_keys
+- name: security | setup authorized_keys
   copy: src="{{source_dir}}/authorized_keys" dest="/home/{{item}}/.ssh/authorized_keys" owner="{{item}}" group="{{item}}" mode=0660
   with_items:
   - pi

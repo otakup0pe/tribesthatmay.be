@@ -17,6 +17,7 @@
 - name: base | abort if needed
   fail: msg="Dependencies not installed but not online"
   when: vim_installed.stdout == '0' and am_online.stdout != '0'
+  changed_when: false
 - name: base | install dependencies
   apt: pkg="{{item}}" state=latest install_recommends=no
   when: last_apt_update.stdout == 'true' and am_online.stdout == '0'

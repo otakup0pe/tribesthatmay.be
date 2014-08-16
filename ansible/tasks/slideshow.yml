@@ -5,7 +5,7 @@
   - js
   - images
 - name: slideshow | copy js
-  copy: src="src/js/{{item}}" dest="{{dest}}/js" force=true
+  copy: src="./src/js/{{item}}" dest="{{dest}}/js" force=true
   with_items:
   - slideshow.js
   - jquery.flexslider-min.js
@@ -13,7 +13,7 @@
   - ttmb_slides.js
   - jquery.min.js
 - name: slideshow | copy html
-  copy: src=src/slideshow.html dest="{{dest}}/index.html" force=true
+  copy: src=./src/slideshow.html dest="{{dest}}/index.html" force=true
 - name: slideshow | copy images
   copy: src="{{item}}" dest="{{dest}}/images/" force=true
   with_fileglob:

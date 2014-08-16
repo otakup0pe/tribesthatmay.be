@@ -1,31 +1,5 @@
 ---
 - name: ttmb | create base directory
   file: path="{{dest}}" state=directory
-- name: ttmb | create sub directories
-  file: path="{{dest}}/{{item}}" state=directory
-  with_items:
-  - js
-  - css
-  - stories
-- name: ttmb | copy css bits
-  copy: src="parchment/lib/{{item}}" dest="{{dest}}/css/{{item}}" force=yes
-  with_items:
-  - parchment.min.css
-  - glkote.min.css
-- name: ttmb | copy js bits
-  copy: src="parchment/lib/{{item}}" dest="{{dest}}/js/{{item}}" force=yes
-  with_items:
-  - glkote.min.js
-  - gnusto.min.js
-  - jquery.min.js
-  - parchment.min.js
-  - prototype.min.js
-  - quixe.min.js
-  - zvm.min.js
-  - glkote.min.css
-- name: ttmb | copy game
-  copy: src="src/{{source}}" dest="{{dest}}/{{source}}"
-- name: ttmb | copy story
-  copy: src="{{source_dir}}/{{story}}" dest="{{dest}}/stories/{{story}}"
-- name: ttmb | update parchment html
-  shell: "sed -i -e s#@@STORY@@#{{story}}# {{dest}}/{{source}}"
+- name: ttmb | sync stories
+  synchronize: dirs=yes delete=yes dest="{{dest}}" src="{{source}}"

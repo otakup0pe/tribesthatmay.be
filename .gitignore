@@ -1,3 +1,4 @@
 parchment/
 node_modules/
 src/js/ttmb_slides.js
+.vagrant

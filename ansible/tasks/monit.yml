@@ -2,9 +2,11 @@
 - name: monit | check if monit is installed
   command: /usr/local/bin/is_installed apt monit
   register: monit_installed
+  changed_when: false
 - name: monit | must be installed if offline
   fail: msg="Monit not installed but not online"
   when: monit_installed.stdout == '0' and am_online.stdout != '0'
+  changed_when: false
 - name: monit | install package
   apt: pkg=monit state=latest
   when: am_online.stdout == '0'

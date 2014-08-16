@@ -1,9 +1,9 @@
 ---
 - hosts: raspi
-  vars:
-  - cfile: ~/Dropbox/TribesThatMayBe/typical.yml
   vars_files:
-  - $cfile
+  - ~/Dropbox/TribesThatMayBe/typical.yml
   tasks:
-  - include: tasks/tribes.yml dest=/opt/ttmb source=raspi.html story=$raspi_story
+  - include: tasks/nginx-raspi.yml
+  - include: tasks/tribes.yml dest=/opt/ttmb source="~/Dropbox/TribesThatMayBe/{{art_piece}}"
   - include: tasks/slideshow.yml dest=/opt/ttmb/slideshow
+    when: with_slides == 'true'

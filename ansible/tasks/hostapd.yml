@@ -2,20 +2,22 @@
   - name: hostapd | check if hostapd is installed
     command: /usr/local/bin/is_installed which hostapd
     register: hostapd_installed
+    changed_when: false
   - name: hostapd | must be installed if offline        
     fail: msg="hostapd not installed but not offline"
+    changed_when: false
     when: hostapd_installed.stdout == '0' and am_online.stdout != '0'
   - name: hostapd | fetch hostapd-rtl8188
-    uri: dest=/tmp/master.zip url=https://github.com/jenssegers/RTL8188-hostapd/archive/master.zip creates=/tmp/master.zip
+    uri: dest=/var/cache/ansible/master.zip url=https://github.com/jenssegers/RTL8188-hostapd/archive/master.zip creates=/var/cache/ansible/master.zip
     when: am_online.stdout == '0'
   - name: hostapd | extract hostapd-rtl8188
-    command: unzip /tmp/master.zip creates=/tmp/RTL8188-hostapd-master chdir=/tmp
+    command: unzip /var/cache/ansible/master.zip creates=/var/cache/ansible/RTL8188-hostapd-master chdir=/var/cache/ansible
     when: am_online.stdout == '0'
   - name: hostapd | build
-    command: make chdir=/tmp/RTL8188-hostapd-master/hostapd creates=/tmp/RTL8188-hostapd-master/hostapd/hostapd
+    command: make chdir=/var/cache/ansible/RTL8188-hostapd-master/hostapd creates=/var/cache/ansible/RTL8188-hostapd-master/hostapd/hostapd
     when: am_online.stdout == '0'
   - name: hostapd | install
-    command: make install chdir=/tmp/RTL8188-hostapd-master/hostapd creates=/usr/local/bin/hostapd
+    command: make install chdir=/var/cache/ansible/RTL8188-hostapd-master/hostapd creates=/usr/local/bin/hostapd
     when: am_online.stdout == '0'
   - name: hostapd | copy config file
     copy: src=hostapd.conf dest=/etc/hostapd/hostapd.conf force=true

@@ -7,3 +7,6 @@
 - name: preflight | check internet access
   command: /usr/local/bin/am_online
   register: am_online
+  changed_when: false
+- name: preflight | create cache directory
+  file: path=/var/cache/ansible state=directory
