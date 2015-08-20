@@ -4,7 +4,7 @@
     register: hostapd_installed
     changed_when: false
   - name: hostapd | must be installed if offline        
-    fail: msg="hostapd not installed but not offline"
+    fail: msg="hostapd not installed but offline"
     changed_when: false
     when: hostapd_installed.stdout == '0' and am_online.stdout != '0'
   - name: hostapd | fetch hostapd-rtl8188
@@ -20,6 +20,10 @@
     command: make install chdir=/var/cache/ansible/RTL8188-hostapd-master/hostapd creates=/usr/local/bin/hostapd
     when: am_online.stdout == '0'
   - name: hostapd | copy config file
-    copy: src=hostapd.conf dest=/etc/hostapd/hostapd.conf force=true
+    template: src=hostapd.conf dest=/etc/hostapd/hostapd.conf force=true
+    register: hostapd_config
   - name: hostapd | copy monit config file
     copy: src=monit/hostapd.conf dest=/etc/monit/conf.d/hostapd.conf force=yes
+  - name: hostapd | restart on config change
+    service: name=hostapd state=restarted
+    when: hostapd_config.changed

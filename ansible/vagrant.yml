@@ -1,11 +1,10 @@
 ---
 - hosts: raspi
-  vars:
-  - cfile: ~/Dropbox/TribesThatMayBe/typical.yml
   vars_files:
-  - $cfile
+  - ~/Dropbox/TribesThatMayBe/typical.yml
   tasks:
+  - include: tasks/preflight.yml
   - include: tasks/base.yml
   - include: tasks/monit.yml
   - include: tasks/nginx-raspi.yml
-  - include: tasks/tribes.yml dest=/opt/ttmb/ source=raspi.html story=$raspi_story
+  - include: tasks/tribes.yml dest=/opt/ttmb/ source=raspi.html source="~/Dropbox/TribesThatMayBe/{{art_piece}}"

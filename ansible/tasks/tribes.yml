@@ -2,4 +2,12 @@
 - name: ttmb | create base directory
   file: path="{{dest}}" state=directory
 - name: ttmb | sync stories
-  synchronize: dirs=yes delete=yes dest="{{dest}}" src="{{source}}"
+  synchronize:
+    dirs: yes
+    delete: yes
+    dest: "{{dest}}"
+    src: "{{source}}"
+  register: sync_stories
+- name: ensure permissions
+  command: "chgrp -R www-data {{dest}}"
+  when: sync_stories.changed

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+SCRIPTDIR=$( cd ${0%/*} && pwd)
+ROOTDIR="${SCRIPTDIR%/*}"
+ANSIBLEDIR="${ROOTDIR}/ansible"
+
+ansible-playbook \
+    -u pi \
+    --become \
+    -i "${ANSIBLEDIR}/inventory/zeroconf" \
+    "${ANSIBLEDIR}/devload.yml"
